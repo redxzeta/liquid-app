@@ -1,2 +1,4 @@
 [build]
 base = "liquid-react-app/"
+publish = "build/"
+command = "yarn run build"
