@@ -1,0 +1,16 @@
+#formUsername {
+    width: 200px;
+}
+#formPassword {
+    width: 200px;
+}
+.login-box {
+    justify-content: center;
+    align-items: center;
+    margin-left: 40%;
+}
+.signup-box {
+    justify-content: center;
+    align-items: center;
+    margin-left: 40%;
+}
