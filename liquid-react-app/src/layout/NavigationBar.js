@@ -1,8 +1,19 @@
-import React from "react";
-import { Nav, NavDropdown } from "react-bootstrap";
+import React, { Fragment } from "react";
+import { Button, Nav } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
-export default function NavigationBar() {
+import { auth } from "../service/FireBaseDashboard";
+export default function NavigationBar({ userAuth }) {
+  const onSignOut = () => {
+    auth()
+      .signOut()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <Navbar bg="primary" expand="lg">
       <Navbar.Brand href="#home">Tiltz</Navbar.Brand>
@@ -12,24 +23,30 @@ export default function NavigationBar() {
           <Nav.Link as={Link} to="/">
             Home
           </Nav.Link>
-          <Nav.Link as={Link} to="/signup">
-            Sign Up
-          </Nav.Link>
-          <Nav.Link as={Link} to="/login">
-            Login
-          </Nav.Link>
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
-          </NavDropdown>
+          {userAuth.authenticated ? (
+            <Fragment>
+              <Nav.Link as={Link} to="/profile">
+                {userAuth.data.displayName}
+              </Nav.Link>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Nav.Link as={Link} to="/signup">
+                Sign Up
+              </Nav.Link>
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
+            </Fragment>
+          )}
         </Nav>
+        {userAuth.authenticated ? (
+          <Button onClick={onSignOut} variant="secondary">
+            Logout
+          </Button>
+        ) : (
+          ""
+        )}
       </Navbar.Collapse>
     </Navbar>
   );
