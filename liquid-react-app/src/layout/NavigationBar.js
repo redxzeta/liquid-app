@@ -13,7 +13,7 @@ export default function NavigationBar() {
             Home
           </Nav.Link>
           <Nav.Link as={Link} to="/signup">
-            SignUp
+            Sign Up
           </Nav.Link>
           <Nav.Link as={Link} to="/login">
             Login
