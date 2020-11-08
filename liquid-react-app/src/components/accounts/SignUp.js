@@ -37,6 +37,7 @@ export default function SignUp() {
         const info = {
           username: user.username,
         };
+        console.log(uid);
         axios
           .post(`${process.env.REACT_APP_FLASK}/session/${uid}`, info)
           .then((response) => {
