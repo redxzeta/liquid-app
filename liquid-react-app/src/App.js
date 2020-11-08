@@ -7,6 +7,7 @@ import Profile from "./components/profile/Profile";
 import { Container } from "react-bootstrap";
 import Login from "./components/accounts/Login";
 import { auth } from "./service/FireBaseDashboard";
+import Workout from "./components/workout/Workout";
 export default function App() {
   const [userAuth, setUserAuth] = useState("");
   useEffect(() => {
@@ -36,6 +37,9 @@ export default function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/workout">
+            <Workout />
           </Route>
           <Route path="/">
             <LandingPage />

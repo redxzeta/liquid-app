@@ -28,6 +28,9 @@ export default function NavigationBar({ userAuth }) {
               <Nav.Link as={Link} to="/profile">
                 {userAuth.data.displayName}
               </Nav.Link>
+              <Nav.Link as={Link} to="/workout">
+                workout
+              </Nav.Link>
             </Fragment>
           ) : (
             <Fragment>
