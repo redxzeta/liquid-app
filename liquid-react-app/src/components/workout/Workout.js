@@ -6,7 +6,7 @@ import axios from "axios";
 export default function Workout({ uid }) {
   //pushups
   //squats
-  //   let history = useHistory();
+  let history = useHistory();
   const [workout, setWorkout] = useState({ kills: 0, assists: 0, deaths: 0 });
   const [lift, setLift] = useState(5);
   const [reps, setReps] = useState(5);
@@ -46,7 +46,7 @@ export default function Workout({ uid }) {
     axios
       .put(`${process.env.REACT_APP_FLASK}/session/${uid}`, submitForm)
       .then((response) => {
-        setWorkout({ kills: 0, assists: 0, deaths: 0 });
+        setWorkout({ kills: 0, assists: 0, deaths: 0, game_won: "true" });
       })
       .catch((error) => {
         console.log(error);
@@ -54,8 +54,15 @@ export default function Workout({ uid }) {
 
     const increment = lift + 5;
     setLift(increment);
+    if (submitForm.game_won === "true") {
+      setTilt(0);
+    } else {
+      setTilt(tilt + 1);
+    }
 
-    setTilt(tilt + 1);
+    if (tilt + 1 === 3) {
+      history.push("/");
+    }
   };
 
   return (
@@ -100,6 +107,7 @@ export default function Workout({ uid }) {
               label="won game"
               name="game_won"
               value="true"
+              checked={workout.game_won === "true"}
               onChange={updateWorkout}
               id="formHorizontalRadios1"
             />
@@ -108,6 +116,7 @@ export default function Workout({ uid }) {
               label="lost game"
               name="game_won"
               value="false"
+              checked={workout.game_won === "false"}
               onChange={updateWorkout}
               id="formHorizontalRadios2"
             />
