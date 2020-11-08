@@ -29,7 +29,7 @@ export default function NavigationBar({ userAuth }) {
                 {userAuth.data.displayName}
               </Nav.Link>
               <Nav.Link as={Link} to="/workout">
-                workout
+                Add Workout
               </Nav.Link>
             </Fragment>
           ) : (

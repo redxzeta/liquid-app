@@ -1,0 +1,23 @@
+.profile-page {
+    max-width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+.profile-title {
+    text-align: center;
+    width: 400px;
+    font-size: 60px;
+    font-weight: 600;
+}
+.profile-subtitle {
+    width: 400px;
+    font-weight: 200;
+}
+.profile-card {
+    width: 400px;
+    margin: 20px;
+}
+.card-subtitle {
+    text-align: center;
+}
