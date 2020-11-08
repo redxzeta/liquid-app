@@ -1,10 +1,45 @@
-.landingpage{
-text-align: center;
+.landingpage {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
-
-.landingpage img{
-margin-bottom: 30px;
+.flex-1 {
+    padding: 15px;
+    width: 600px;
+    text-align: center;
+    /* border: 1px solid black; */
 }
-.button {
-
+.flex-2 {
+    padding: 15px;
+    width: 600px;
+    text-align: center;
+    /* border: 1px solid black; */
+}
+.flex-2-1 {
+    padding: 15px;
+    width: 600px;
+    /* border: 1px solid black; */
+}
+.flex-3 {
+    padding: 15px;
+}
+.flex-4 { 
+    padding: 15px;
+    width: 600px;
+    /* border: 1px solid black; */
+    text-align: center;
+}
+.landing-text {
+    font-size: 20px;
+}
+.landing-subtitle {
+    font-size: 30px;
+    font-weight: 600;
+}
+.landing-title {
+    font-weight: 900;
+    font-size: 50px;
+}
+img {
+    width: 600px;
 }

@@ -4,3 +4,17 @@
 #formPassword {
     width: 200px;
 }
+#formEmail {
+    width: 200px;
+}
+Form {
+    margin: auto;
+    width: 20%;
+    padding: 10px;
+}
+.login-header {
+    margin: auto;
+    width: 20%;
+    /* border: 3px solid green; */
+    font-size: 60px;
+}
