@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import React, { Fragment, useState } from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 export default function Workout() {
   //pushups
   //squats
   const [workout, setWorkout] = useState("");
+  const [lift, setLift] = useState(5);
   const updateWorkout = (e) => {
     e.persist();
     setWorkout((workout) => ({
@@ -18,9 +19,12 @@ export default function Workout() {
   const onSubmit = (e) => {
     e.preventDefault();
     const pop = uuidv4();
+    const increment = lift + 5;
+    setLift(increment);
     console.log(pop);
     console.log(workout);
   };
+
   return (
     <div>
       <h1>TILT O WORKOUT</h1>
@@ -60,33 +64,59 @@ export default function Workout() {
           <Col sm={10}>
             <Form.Check
               type="radio"
-              label="first radio"
+              label="won game"
               name="game_won"
-              value={true}
+              value="true"
+              onChange={updateWorkout}
               id="formHorizontalRadios1"
             />
             <Form.Check
               type="radio"
-              label="second radio"
+              label="lost game"
               name="game_won"
-              value={false}
+              value="false"
+              onChange={updateWorkout}
               id="formHorizontalRadios2"
             />
           </Col>
         </Form.Row>
-
+        <Row>
+          <Col>
+            {workout.game_won === "false" ? (
+              <Fragment>
+                <LetsWorkout name="pushups" number={lift} />
+                <LetsWorkout name="squats" number={lift} />
+                <LetsWorkout name="jumping jacks" number={lift} />
+              </Fragment>
+            ) : (
+              ""
+            )}
+          </Col>
+        </Row>
         <Button variant="primary" type="submit">
           Submit
         </Button>
       </Form>
-      <img
-        src="https://media.giphy.com/media/gLWIEqSm5zCjZmiaQx/giphy.gif"
-        alt="gif"
-      />
+      {workout.game_won === "false" ? (
+        <img
+          src="https://media.giphy.com/media/S6B2ojCGJEM09J4R95/giphy.gif"
+          alt="liquid_gif"
+        />
+      ) : (
+        <img
+          src="https://media.giphy.com/media/gLWIEqSm5zCjZmiaQx/giphy.gif"
+          alt="gif"
+        />
+      )}
     </div>
   );
 }
 
+const LetsWorkout = ({ name, number }) => (
+  <h1>
+    {number} {name}
+  </h1>
+);
 const KDAForm = (props) => (
   <Col>
     <InputForm {...props} />
