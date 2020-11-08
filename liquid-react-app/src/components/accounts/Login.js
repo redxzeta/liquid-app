@@ -29,7 +29,7 @@ export default function Login() {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1 className="login-header">Login</h1>
       <h2>{error}</h2>
       <Form onSubmit={onSubmit}>
         <Form.Group controlId="formUsername">
