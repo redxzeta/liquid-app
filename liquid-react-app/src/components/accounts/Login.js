@@ -31,7 +31,7 @@ export default function Login() {
     <div>
       <h1 className="login-header">Login</h1>
       <h2>{error}</h2>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} className="form-styling">
         <Form.Group controlId="formUsername">
           <Form.Label>Email</Form.Label>
           <Form.Control
