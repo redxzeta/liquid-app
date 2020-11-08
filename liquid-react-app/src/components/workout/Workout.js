@@ -1,11 +1,16 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-export default function Workout() {
+import axios from "axios";
+export default function Workout({ uid }) {
   //pushups
   //squats
-  const [workout, setWorkout] = useState("");
+  //   let history = useHistory();
+  const [workout, setWorkout] = useState({ kills: 0, assists: 0, deaths: 0 });
   const [lift, setLift] = useState(5);
+  const [reps, setReps] = useState(5);
+  const [tilt, setTilt] = useState(0);
   const updateWorkout = (e) => {
     e.persist();
     setWorkout((workout) => ({
@@ -16,19 +21,47 @@ export default function Workout() {
   //pushups
   //squats
   //jumping jacks
+
+  useEffect(() => {
+    const killscore = parseInt(workout.kills) + parseInt(workout.assists);
+    if (killscore < workout.deaths) {
+      const number = parseInt(workout.deaths) - killscore;
+
+      setReps(lift + number);
+    } else {
+      setReps(lift + 1);
+    }
+  }, [workout, lift]);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    const pop = uuidv4();
+    const workoutId = uuidv4();
+    const submitForm = {
+      ...workout,
+      _id: workoutId,
+      pushups: reps,
+      squats: reps,
+      jumpingjacks: reps,
+    };
+    axios
+      .put(`${process.env.REACT_APP_FLASK}/session/${uid}`, submitForm)
+      .then((response) => {
+        setWorkout({ kills: 0, assists: 0, deaths: 0 });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     const increment = lift + 5;
     setLift(increment);
-    console.log(pop);
-    console.log(workout);
+
+    setTilt(tilt + 1);
   };
 
   return (
     <div>
       <h1>TILT O WORKOUT</h1>
-      <h1>Enter Starting Workout numbers and increments</h1>
+      <h2>TILT COUNTER: {tilt} </h2>
 
       <Form onSubmit={onSubmit}>
         <InputForm
@@ -84,9 +117,9 @@ export default function Workout() {
           <Col>
             {workout.game_won === "false" ? (
               <Fragment>
-                <LetsWorkout name="pushups" number={lift} />
-                <LetsWorkout name="squats" number={lift} />
-                <LetsWorkout name="jumping jacks" number={lift} />
+                <LetsWorkout name="pushups" number={reps} />
+                <LetsWorkout name="squats" number={reps} />
+                <LetsWorkout name="jumping jacks" number={reps} />
               </Fragment>
             ) : (
               ""

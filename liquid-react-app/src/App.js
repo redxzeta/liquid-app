@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import NavigationBar from "./layout/NavigationBar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import LandingPage from "./components/home/LandingPage";
 import SignUp from "./components/accounts/SignUp";
 import Profile from "./components/profile/Profile";
@@ -33,13 +38,17 @@ export default function App() {
             <Profile />
           </Route>
           <Route path="/signup">
-            <SignUp />
+            {userAuth.authenticated ? <Redirect to="/" /> : <SignUp />}
           </Route>
           <Route path="/login">
-            <Login />
+            {userAuth.authenticated ? <Redirect to="/" /> : <Login />}
           </Route>
           <Route path="/workout">
-            <Workout />
+            {userAuth.authenticated ? (
+              <Workout uid={userAuth.data.uid} />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route path="/">
             <LandingPage />
