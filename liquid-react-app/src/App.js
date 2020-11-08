@@ -28,14 +28,17 @@ export default function App() {
     });
   }, []);
 
-  console.log(userAuth.data);
   return (
     <Router>
       <NavigationBar userAuth={userAuth} />
       <Container>
         <Switch>
           <Route path="/profile">
-            <Profile />
+            {userAuth.authenticated ? (
+              <Profile uid={userAuth.data.uid} />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route path="/signup">
             {userAuth.authenticated ? <Redirect to="/" /> : <SignUp />}
@@ -51,7 +54,7 @@ export default function App() {
             )}
           </Route>
           <Route path="/">
-            <LandingPage />
+            <LandingPage authenticated={userAuth.authenticated} />
           </Route>
         </Switch>
       </Container>

@@ -35,13 +35,25 @@ export default function Workout({ uid }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    let submittedReps = 0;
+    if (workout.game_won === "true") {
+      setTilt(0);
+      setLift(5);
+    } else {
+      setTilt(tilt + 1);
+      const increment = lift + 5;
+      setLift(increment);
+      submittedReps = reps;
+    }
+
     const workoutId = uuidv4();
+
     const submitForm = {
       ...workout,
       _id: workoutId,
-      pushups: reps,
-      squats: reps,
-      jumpingjacks: reps,
+      pushups: submittedReps,
+      squats: submittedReps,
+      jumpingjacks: submittedReps,
     };
     axios
       .put(`${process.env.REACT_APP_FLASK}/session/${uid}`, submitForm)
@@ -51,14 +63,6 @@ export default function Workout({ uid }) {
       .catch((error) => {
         console.log(error);
       });
-
-    const increment = lift + 5;
-    setLift(increment);
-    if (submitForm.game_won === "true") {
-      setTilt(0);
-    } else {
-      setTilt(tilt + 1);
-    }
 
     if (tilt + 1 === 3) {
       history.push("/");

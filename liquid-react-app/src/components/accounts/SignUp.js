@@ -3,7 +3,7 @@ import "./login.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { auth, userCreate } from "../../service/FireBaseDashboard";
-
+import axios from "axios";
 export default function SignUp() {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
@@ -17,6 +17,7 @@ export default function SignUp() {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("going in");
+
     setError("");
     auth()
       .createUserWithEmailAndPassword(user.email, user.password)
@@ -31,7 +32,19 @@ export default function SignUp() {
           ...user,
           uid: userCredentials.user.uid,
         };
+        const uid = userCredentials.user.uid;
         userCreate(userForm);
+        const info = {
+          username: user.username,
+        };
+        axios
+          .post(`${process.env.REACT_APP_FLASK}/session/${uid}`, info)
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
