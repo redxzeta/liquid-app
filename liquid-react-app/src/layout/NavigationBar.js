@@ -42,6 +42,9 @@ export default function NavigationBar({ userAuth }) {
               </Nav.Link>
             </Fragment>
           )}
+          <Nav.Link as={Link} to="/tilted">
+            Click Here for some goodies
+          </Nav.Link>
         </Nav>
         {userAuth.authenticated ? (
           <Button onClick={onSignOut} variant="secondary">

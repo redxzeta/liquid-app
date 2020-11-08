@@ -65,7 +65,7 @@ export default function Workout({ uid }) {
       });
 
     if (tilt + 1 === 3) {
-      history.push("/");
+      history.push("/tilted");
     }
   };
 

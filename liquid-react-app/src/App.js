@@ -13,6 +13,7 @@ import { Container } from "react-bootstrap";
 import Login from "./components/accounts/Login";
 import { auth } from "./service/FireBaseDashboard";
 import Workout from "./components/workout/Workout";
+import Tilted from "./components/tilted/Tilted";
 export default function App() {
   const [userAuth, setUserAuth] = useState("");
   useEffect(() => {
@@ -52,6 +53,9 @@ export default function App() {
             ) : (
               <Redirect to="/" />
             )}
+          </Route>
+          <Route path="/tilted">
+            <Tilted />
           </Route>
           <Route path="/">
             <LandingPage authenticated={userAuth.authenticated} />
